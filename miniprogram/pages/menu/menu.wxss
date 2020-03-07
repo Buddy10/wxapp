@@ -1,0 +1,7 @@
+/* pages/menu/menu.wxss */
+.food-name,.food-price{
+  font-size: 50rpx;
+}
+.food-number{
+  font-size: 40rpx;
+}
