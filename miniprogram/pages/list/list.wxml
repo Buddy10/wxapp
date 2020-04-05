@@ -1,4 +1,16 @@
 <!--pages/list/list.wxml-->
 <text>我的订单</text>
-<block wx:for=""></block>
+<block wx:for="{{foods}}" wx:key="addTime">
+  <view class="food-item" id="{{index}}" hidden="{{item.number==0}}">
+    <view>food-image</view>
+    <view class="food-name">{{item.name}}</view>
+    <!-- <view class="food-price">{{item.price}}</view> -->
+    <view class="selectnumber">
+      <!-- <van-button round type="info" size="mini" color="#d81e06" bind:tap="addFood" id="{{item.addTime}}">+</van-button> -->
+      <view class="food-number">{{item.number}}</view>
+      <!-- <van-button round type="info" size="mini" color="#d81e06" bind:tap="removeFood" id="{{item.addTime}}">-</van-button> -->
+    </view>
+  </view>
+</block>
+<p>合计：{{money}}元</p>
 

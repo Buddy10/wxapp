@@ -38,7 +38,12 @@ Page({
     console.log(event)
     for (var i = 0; i < this.data.foods.length; i++){
       if(this.data.foods[i].addTime == event.currentTarget.id){
-        this.data.foods[i].number++
+        //this.data.foods[i].number++
+        var index = "foods[" + i.toString() + "].number"
+        var param = {}
+        param[index] = this.data.foods[i].number + 1
+        this.setData(param)
+        wx.setStorageSync('foods', this.data.foods)
       }
     }
 
@@ -48,7 +53,12 @@ Page({
     console.log(event)
     for (var i = 0; i < this.data.foods.length; i++) {
       if (this.data.foods[i].addTime == event.currentTarget.id && this.data.foods[i].number>0) {
-        this.data.foods[i].number--
+        //this.data.foods[i].number--
+        var index = "foods[" + i.toString() + "].number"
+        var param = {}
+        param[index] = this.data.foods[i].number - 1
+        this.setData(param)
+        wx.setStorageSync('foods', this.data.foods)
       }
     }
 
@@ -137,12 +147,13 @@ Page({
 
   },
 
+  //wx:setStorageSync('foods', this.data.foods),
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-
+    wx.setStorageSync('foods', this.data.foods)
   },
 
   /**
@@ -194,7 +205,7 @@ Page({
 
   },
 
-  exports:module = {
-    foods: this.data.foods
-  }
+  // exports:module = {
+  //   foods: this.data.foods
+  // }
 })

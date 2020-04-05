@@ -1,18 +1,25 @@
 // pages/list/list.js
 Page({
 
+  
   /**
    * 页面的初始数据
    */
   data: {
-    
-
+    foods:[],
+    money: 0
   },
+
+  // foods = wx.getStorageSync('foods') || [],
+  // this.setData({
+  //   foods: foods
+  // }),
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
 
   },
 
@@ -27,7 +34,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      foods: wx.getStorageSync('foods')
+    })
+    var sum = 0
+    for (var i = 0; i < this.data.foods.length; i++){
+      if(this.data.foods[i].number!=0){
+        sum += this.data.foods[i].number * this.data.foods[i].price
+      }
+    }
+    this.setData({
+      money:sum
+    })
   },
 
   /**
