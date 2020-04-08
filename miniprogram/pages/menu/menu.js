@@ -3,7 +3,7 @@ Page({
 
 
 
-  selectSidebar(event) {
+  selectTabs: function (event) {
     /*
     wx.showToast({
       icon: 'none',
@@ -17,7 +17,7 @@ Page({
       var index = "foods[" + i.toString() + "].isHidden"
       //console.log(index)
       var param = {}
-      if (this.data.foods[i].tag != event.detail){
+      if (this.data.foods[i].tag != event.detail.index){
         param[index] = true
         this.setData(param)
       }else{
@@ -34,7 +34,7 @@ Page({
 
   },
 
-  addFood(event){
+  addFood: function (event) {
     console.log(event)
     for (var i = 0; i < this.data.foods.length; i++){
       if(this.data.foods[i].addTime == event.currentTarget.id){
@@ -49,7 +49,7 @@ Page({
 
   },
 
-  removeFood(event){
+  removeFood: function (event) {
     console.log(event)
     for (var i = 0; i < this.data.foods.length; i++) {
       if (this.data.foods[i].addTime == event.currentTarget.id && this.data.foods[i].number>0) {
@@ -69,11 +69,12 @@ Page({
    */
   data: {
     num:8,
-    activeKey:0,
+    active:0,
     foods: [
       {
         addTime: "20200101",
         name: "芹菜炒肉",
+        imageurl: "../../images/foods/qccr.jpg",
         tag: 0,
         price: 10,
         number: 0,
@@ -82,6 +83,7 @@ Page({
       {
         addTime: "20200102",
         name: "西红柿炒鸡蛋",
+        imageurl: "../../images/foods/xhscd.jpg",
         tag: 0,
         price: 8,
         number: 0,
@@ -90,6 +92,7 @@ Page({
       {
         addTime: "20200103",
         name: "木须肉",
+        imageurl: "../../images/foods/mxr.jpg",
         tag: 0,
         price: 11,
         number: 0,
@@ -98,6 +101,7 @@ Page({
       {
         addTime: "20200104",
         name: "炒花菜",
+        imageurl: "../../images/foods/chc.jpg",
         tag: 0,
         price: 7,
         number: 0,
@@ -106,6 +110,7 @@ Page({
       {
         addTime: "20200105",
         name: "馒头",
+        imageurl: "../../images/foods/mt.jpg",
         tag: 1,
         price: 1,
         number: 0,
@@ -114,6 +119,7 @@ Page({
       {
         addTime: "20200106",
         name: "米饭",
+        imageurl: "../../images/foods/mf.jpg",
         tag: 1,
         price: 1,
         number: 0,
@@ -122,6 +128,7 @@ Page({
       {
         addTime: "20200107",
         name: "煎饼",
+        imageurl: "../../images/foods/jb.jpg",
         tag: 1,
         price: 2,
         number: 0,
@@ -130,6 +137,7 @@ Page({
       {
         addTime: "20200108",
         name: "白酒",
+        imageurl: "../../images/foods/bj.jpg",
         tag: 2,
         price: 10,
         number: 0,
@@ -138,6 +146,7 @@ Page({
       {
         addTime: "20200109",
         name: "果汁",
+        imageurl: "../../images/foods/gz.jpg",
         tag: 2,
         price: 6,
         number: 0,
@@ -163,11 +172,27 @@ Page({
 
   },
 
+    //从本地缓存中获取数据
+  getFoods: function () {
+    this.setData({
+      foods: wx.getStorageSync('foods')
+    })
+    var sum = 0
+    for (var i = 0; i < this.data.foods.length; i++){
+      if(this.data.foods[i].number!=0){
+        sum += this.data.foods[i].number * this.data.foods[i].price
+      }
+    }
+    this.setData({
+      money:sum
+    })
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getFoods()
   },
 
   /**

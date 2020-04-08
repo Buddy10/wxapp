@@ -1,19 +1,24 @@
 <!--pages/menu/menu.wxml-->
 <view>欢迎光临真香饭店</view>
-<van-sidebar active-key="{{ activeKey }}" bind:change="selectSidebar">
-  <van-sidebar-item title="菜品" />
-  <van-sidebar-item title="主食" />
-  <van-sidebar-item title="酒水" />
-</van-sidebar>
+
+<van-tabs active="{{ active }}" bind:change="selectTabs">
+  <van-tab title="菜品"></van-tab>
+  <van-tab title="主食"></van-tab>
+  <van-tab title="酒水"></van-tab>
+</van-tabs>
 <block wx:for="{{foods}}" wx:key="addTime">
   <view class="food-item" id="{{index}}" hidden="{{item.isHidden}}">
-    <view>food-image</view>
-    <view class="food-name">{{item.name}}</view>
-    <view class="food-price">{{item.price}}</view>
-    <view class="selectnumber">
-      <van-button round type="info" size="mini" color="#d81e06" bind:tap="addFood" id="{{item.addTime}}">+</van-button>
-      <view class="food-number">{{item.number}}</view>
-      <van-button round type="info" size="mini" color="#d81e06" bind:tap="removeFood" id="{{item.addTime}}">-</van-button>
+    <view class="food-image"><image  src="{{item.imageurl}}" mode="scaleToFill" style="height: 80px;width: 80px;"></image></view>
+    <view class="food-info">
+      <view class="food-name">{{item.name}}</view>
+      <view class="food-price">{{item.price}}</view>
+      <view class="selectnumber">
+        <van-button round plain class="remove-button" type="primary" size="mini" 
+         color="#d81e06" bind:tap="removeFood" id="{{item.addTime}}">-</van-button>
+        <view class="food-number">{{item.number}}</view>
+        <van-button round plain class="add-button" type="primary" size="mini" 
+         color="#d81e06" bind:tap="addFood" id="{{item.addTime}}">+</van-button>
+      </view>
     </view>
   </view>
 </block>

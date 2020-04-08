@@ -1,7 +1,34 @@
 /* pages/menu/menu.wxss */
-.food-name,.food-price{
+.food-name, .food-price{
   font-size: 50rpx;
+}
+.food-image{
+  border: 2rpx solid black;
+  height: 160rpx;
+  width: 160rpx;
+  float: left;
+}
+.food-item{
+  margin: 10rpx;
+  padding: 6px;
+  border: 4rpx solid black;
+  border-radius: 30rpx;
+}
+.food-info{
+  float: left;
+  width: 500rpx;
+}
+.add-button, .remove-button, .food-number{
+  float: right;
 }
 .food-number{
   font-size: 40rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.selectnumber{
+  width: 500rpx;
+}
+van-button{
+  size: 80rpx;
 }

@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/menu/menu",
-    "pages/list/list"
+    "pages/list/list",
+    "pages/order/order"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -16,20 +17,28 @@
     "list": [{
       "pagePath": "pages/menu/menu",
       "text": "点餐",
-      "iconPath": "images/want-333333.png",
-      "selectedIconPath": "images/want-d81e06.png"
+      "iconPath": "images/tabbar/want-333333.png",
+      "selectedIconPath": "images/tabbar/want-d81e06.png"
     },
     {
       "pagePath": "pages/list/list",
       "text": "付款",
-      "iconPath": "images/shopping-car-333333.png",
-      "selectedIconPath": "images/shopping-car-d81e06.png"
+      "iconPath": "images/tabbar/shopping-car-333333.png",
+      "selectedIconPath": "images/tabbar/shopping-car-d81e06.png"
+    },
+    {
+      "pagePath": "pages/order/order",
+      "text": "订单",
+      "iconPath": "images/tabbar/order-333333.png",
+      "selectedIconPath": "images/tabbar/order-d81e06.png"
     }]
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "van-button": "@vant/weapp/button",
     "van-sidebar": "@vant/weapp/sidebar",
-    "van-sidebar-item": "@vant/weapp/sidebar-item"
+    "van-sidebar-item": "@vant/weapp/sidebar-item",
+    "van-tab": "@vant/weapp/tab",
+    "van-tabs": "@vant/weapp/tabs"
   }
 }
