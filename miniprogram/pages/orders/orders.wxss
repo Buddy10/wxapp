@@ -1,0 +1,4 @@
+/* pages/order/order.wxss */
+.ordertitle{
+    border: 4rpx solid black;
+}

@@ -1,0 +1,10 @@
+<!--pages/orderinfo/orderinfo.wxml-->
+<block wx:for="{{order}}" wx:key="addTime">
+  <view class="order-item" id="{{index}}" hidden="{{item.number==0}}">
+    <view class="food-image"><image  src="{{item.imageurl}}" mode="scaleToFill" style="height: 80px;width: 80px;"></image></view>
+    <view class="food-name">{{item.name}}</view>
+    <view class="food-price">{{item.price}}</view>
+    <view class="food-number">份</view>
+    <view class="food-number">{{item.number}}</view>
+  </view>
+</block>

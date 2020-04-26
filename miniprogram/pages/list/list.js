@@ -1,4 +1,5 @@
 // pages/list/list.js
+var util = require('../../utils/util.js');
 Page({
 
   
@@ -9,9 +10,10 @@ Page({
     foods:[],
     money: 0,
     ordernumber: 0,
-    orders: [],
+    orders: {},
     ordersmoney: [],
-    willpay: 3
+    tmporder: {}
+
   },
 
   // foods = wx.getStorageSync('foods') || [],
@@ -23,7 +25,7 @@ Page({
     console.log(event)
     for (var i = 0; i < this.data.foods.length; i++){
       if(this.data.foods[i].addTime == event.currentTarget.id){
-        //this.data.foods[i].number++
+        //this.data.foods[i].number++,
         var index = "foods[" + i.toString() + "].number"
         var param = {}
         param[index] = this.data.foods[i].number + 1
@@ -32,7 +34,7 @@ Page({
         this.setData({
           money: this.data.money + this.data.foods[i].price
         })
-
+        break
       }
     }
   },
@@ -50,31 +52,61 @@ Page({
         this.setData({
           money: this.data.money - this.data.foods[i].price
         })
+        break
       }
     }
   },
 
-  //弹窗确认付款函数
-  popConfirm: function(){
-    var self = this
-    wx.showModal({
-      title: '付款确认',
-      content: '确定要付款吗？',
-      success: function (res) {
-        if (res.confirm) {  
-          console.log('点击确认付款')
-          self.setData({
-            willpay: 1
-          })
-        } else {   
-          console.log('点击取消付款')
-          self.setData({
-            willpay: 0
-          })
-        }
-      }
-    })
+  //获取日期时间
+  getTime: function () {
+    var time = util.formatTime(new Date());
+    this.setData({
+      time: time
+    });
   },
+
+  //记录订单数据
+  getOrder: function () {
+    var self = this
+    //改变缓存中的总订单数
+    self.setData({
+      ordernumber: self.data.ordernumber + 1 
+    })
+    //获取缓存中的foods
+    //此步多余
+    // self.setData({
+    //   foods: wx.getStorageSync('foods')
+    // })
+    //记录订单产生时间
+    self.getTime()
+    //把当前订单情况存入orders[i]中
+    var ordername = 'orders[' + self.data.ordernumber.toString() + ']'
+    // var param = {}
+    // param[index] = self.data.money
+    // self.setData(param)
+    wx.setStorageSync(ordername, self.data.foods)
+    var ordermoney = 'ordersmoney[' + self.data.ordernumber.toString() + ']'
+    wx.setStorageSync(ordermoney, self.data.money)
+    var ordertime = 'orderstime[' + self.data.ordernumber.toString() + ']'
+    wx.setStorageSync(ordertime, self.data.time)
+    wx.setStorageSync('ordernumber', self.data.ordernumber)
+  },
+  //页面和缓存恢复初始数据
+  initData: function () {
+    var self = this
+    self.setData({
+      money: 0
+    })
+    for (var i = 0; i < self.data.foods.length; i++){
+      //this.data.foods[i].number++
+      var index = "foods[" + i.toString() + "].number";
+      var param = {};
+      param[index] = 0;
+      self.setData(param);
+      wx.setStorageSync('foods', self.data.foods);
+    }
+  },
+ 
 
   paynow: function () {
     //判断是否已点菜，未点菜则提示
@@ -87,61 +119,49 @@ Page({
       });
     } else {
       //询问是否确认付款
-      this.popConfirm()
-      if (this.data.willpay == 1) {
-        //记录订单数据
-        var index = 'orders[' + this.data.ordernumber.toString() + ']'
-        wx.setStorageSync(index, this.data.foods)
-        var index2 = 'ordersmoney[' + this.data.ordernumber.toString() + ']'
-        wx.setStorageSync(index2, this.data.money)
-        this.setData({
-          ordernumber: this.data.ordernumber + 1
-        })
-        //显示付款成功提示
-        wx.showToast({
-          icon: '',
-          title: `付款成功`,
-          duration: 2000,
-          mask: true
-        });
-        //页面恢复初始数据
-        this.setData({
-          money: 0
-        })
-        for (var i = 0; i < this.data.foods.length; i++){
-          //this.data.foods[i].number++
-          var index = "foods[" + i.toString() + "].number"
-          var param = {}
-          param[index] = 0
-          this.setData(param)
-          wx.setStorageSync('foods', this.data.foods)
+      //this.popConfirm()
+       //弹窗确认付款函数
+      
+      var self = this
+      wx.showModal({
+        title: '付款确认',
+        content: '确定要付款吗？',
+        success: function (res) {
+          if (res.confirm) {  
+            console.log('点击确认付款')
+            //记录订单数据
+            self.getOrder()
+            //显示付款成功提示
+            wx.showToast({
+              icon: '',
+              title: `付款成功`,
+              duration: 2000,
+              mask: true
+            });
+            //页面和缓存恢复初始数据
+            self.initData()
+            //切换到订单信息页面
+            wx.switchTab({
+              url: '/pages/orders/orders',
+              success: (result) => {
+                
+              },
+              fail: () => {},
+              complete: () => {}
+            });
+          } else {   
+            console.log('点击取消付款')
+            wx.showToast({
+              icon: 'none',
+              title: `已取消`,
+              duration: 2000,
+              mask: true
+            });
+          }
         }
-        wx.switchTab({
-          url: '/pages/order/order',
-          success: (result) => {
-            
-          },
-          fail: () => {},
-          complete: () => {}
-        });
-        this.setData({
-          willpay: 3
-        })
-      } else if (this.data.willpay == 0) {
-        wx.showToast({
-          icon: 'none',
-          title: `已取消`,
-          duration: 2000,
-          mask: true
-        });
-        this.setData({
-          willpay: 3
-        })
-      } else {
-        this.setData({
-          willpay: 3
-        })
-      }
+      })
+      
+      
       
     }
     
@@ -160,7 +180,7 @@ Page({
    */
   onReady: function () {
 
-  },
+  }, 
 
     //从本地缓存中获取数据
   getFoods: function () {
@@ -183,6 +203,9 @@ Page({
    */
   onShow: function () {
     this.getFoods()
+    this.setData({
+      ordernumber:wx.getStorageSync('ordernumber')
+    })
   },
 
   /**

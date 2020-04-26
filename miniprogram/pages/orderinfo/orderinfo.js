@@ -1,10 +1,19 @@
-// pages/order/order.js
+// pages/orderinfo/orderinfo.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    orderindex: 0,
+    order: []
+  },
+
+  show: function () {
+    var param = 'orders[' + this.data.orderindex.toString() + ']'
+    this.setData({
+      order: wx.getStorageSync(param)
+    })
 
   },
 
@@ -12,7 +21,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log("接收到的参数是orderindex="+options.orderindex); 
+    this.setData({
+      orderindex: options.orderindex
+    })
+    this.show()
   },
 
   /**

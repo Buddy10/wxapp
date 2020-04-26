@@ -68,6 +68,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    
+    //orders: {},
     num:8,
     active:0,
     foods: [
@@ -169,7 +172,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    if (!wx.getStorageSync('ordernumber')){
+      wx.setStorageSync('ordernumber', 0)
+    }
+    
+    //wx.setStorageSync('orders', this.data.orders)
   },
 
     //从本地缓存中获取数据

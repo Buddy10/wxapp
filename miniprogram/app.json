@@ -2,7 +2,8 @@
   "pages": [
     "pages/menu/menu",
     "pages/list/list",
-    "pages/order/order"
+    "pages/orders/orders",
+    "pages/orderinfo/orderinfo"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -27,7 +28,7 @@
       "selectedIconPath": "images/tabbar/shopping-car-d81e06.png"
     },
     {
-      "pagePath": "pages/order/order",
+      "pagePath": "pages/orders/orders",
       "text": "订单",
       "iconPath": "images/tabbar/order-333333.png",
       "selectedIconPath": "images/tabbar/order-d81e06.png"
