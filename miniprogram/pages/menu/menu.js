@@ -159,6 +159,18 @@ Page({
 
   },
 
+  pay: function () {
+      wx.switchTab({
+        url: '/pages/list/list',
+        success: (result) => {
+          
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+        
+  },
+
   //wx:setStorageSync('foods', this.data.foods),
 
   /**

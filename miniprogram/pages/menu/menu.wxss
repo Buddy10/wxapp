@@ -32,3 +32,23 @@
 van-button{
   size: 80rpx;
 }
+.paybutton{
+  border: 4rpx solid black;
+  width: 600rpx;
+  height: 100rpx;
+  color: #ffffff;
+  background-color: #d81e06;
+  margin: auto;
+  /* position: relative;
+  bottom: 0rpx; */
+  /* right: 20px; */
+}
+ .paytext{
+  margin: auto;
+  font-size: 60rpx;
+  width: 180rpx;
+  height: 80rpx;
+} 
+/* text{
+  font-size: 60rpx;
+} */

@@ -14,6 +14,7 @@
     </view>
   </view>
 </block>
+<view class="blank"></view>
 <view class="bottombar">
   <view class="allmoney">合计：{{money}}元</view>
   <view class="pay" bind:tap="paynow">立即付款</view>

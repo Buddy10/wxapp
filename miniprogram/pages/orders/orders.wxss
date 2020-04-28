@@ -1,4 +1,5 @@
 /* pages/order/order.wxss */
 .ordertitle{
     border: 4rpx solid black;
+    margin-top: 6rpx;
 }

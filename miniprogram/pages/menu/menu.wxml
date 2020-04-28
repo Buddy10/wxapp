@@ -1,6 +1,4 @@
 <!--pages/menu/menu.wxml-->
-<view>欢迎光临真香饭店</view>
-
 <van-tabs active="{{ active }}" bind:change="selectTabs">
   <van-tab title="菜品"></van-tab>
   <van-tab title="主食"></van-tab>
@@ -22,3 +20,8 @@
     </view>
   </view>
 </block>
+<view class="paybutton" bind:tap="pay">
+  <view class="paytext">
+    去付款
+  </view>
+</view>

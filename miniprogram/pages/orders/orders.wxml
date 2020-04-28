@@ -1,12 +1,13 @@
 <!--pages/order/order.wxml-->
-<view>历史订单</view>
-
+<view>历史订单：</view>
+<view>点击查看订单详情</view>
 <block wx:for="{{ordertitles}}" wx:key="time">
   <view class="ordertitle" bind:tap="showInfo" id="{{index+1}}">
     <view class="index">{{index+1}}</view>
-    <view class="ordertime">{{item.time}}</view>
-    <view class="ordermoney">{{item.money}}</view>
+    <view class="ordertime">订单日期：{{item.time}}</view>
+    <view class="ordermoney">总金额：{{item.money}}</view>
   </view>
 </block>
+
 
   
